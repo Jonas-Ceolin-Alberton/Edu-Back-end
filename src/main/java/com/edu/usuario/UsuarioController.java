@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "/usuario")
+@RequestMapping(path = "/login")
 @CrossOrigin
 public class UsuarioController {
 
@@ -18,14 +18,15 @@ public class UsuarioController {
     public Optional<Usuario> listarPorId(@PathVariable(name = "id") Long id) {
         return this.usuarioService.buscarPorId(id);
     }
+//
+//    @PostMapping
+//    public Usuario cadastrar(@RequestBody Usuario usuario) {
+//        return this.usuarioService.salvar(usuario);
+//    }
 
-    @PostMapping
-    public Usuario cadastrar(@RequestBody Usuario usuario) {
-        return this.usuarioService.salvar(usuario);
-    }
-
-    @PostMapping(path= "/autenticar")
-    public Usuario autenticar(@RequestBody Usuario usuario) {
-        return this.usuarioService.autenticar(usuario);
+    @PostMapping()
+    public String autenticar(@RequestBody Usuario usuario) {
+            return "works";
+//        return this.usuarioService.autenticar(usuario);
     }
 }
