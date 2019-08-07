@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,8 +23,12 @@ public class UsuarioDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario accountCredentials =  Optional.ofNullable(usuarioRepository.findByUsername(username))
-                                                 .orElseThrow( () -> new UsernameNotFoundException("Usuario não encontrado"));
+//        Usuario accountCredentials =  Optional.ofNullable(usuarioRepository.findByUsername(username))
+//                                                 .orElseThrow( () -> new UsernameNotFoundException("Usuario não encontrado"));
+
+        Usuario accountCredentials = new Usuario();
+        accountCredentials.setUsername("admin");
+        accountCredentials.setPassword(new BCryptPasswordEncoder().encode("admin"));
 
         List<GrantedAuthority> authorityListAdmin = AuthorityUtils.createAuthorityList("ROLE_USER", "ROLE_ADMIN");
         List<GrantedAuthority> authorityListUser = AuthorityUtils.createAuthorityList("ROLE_USER");
