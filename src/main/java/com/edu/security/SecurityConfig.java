@@ -1,6 +1,7 @@
 package com.edu.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -11,31 +12,22 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private CustomAccountCredentialsDetailService customAccountCredentialsDetailService;
+    private UsuarioDetailService usuarioDetailService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.cors().and().csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .httpBasic()
-                .and()
-                .csrf().disable();
+                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+                .addFilter(new JWTAuthorizationFilter(authenticationManager(), usuarioDetailService));
+
     }
-
-
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customAccountCredentialsDetailService).passwordEncoder(new BCryptPasswordEncoder());
+        auth.userDetailsService(usuarioDetailService).passwordEncoder(new BCryptPasswordEncoder());
     }
-
-//
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication()
-//                .withUser("jonas").password("{noop}123").roles("USER")
-//                .and()
-//                .withUser("admin").password("{noop}123").roles("USER", "ADMIN");
-//    }
 }

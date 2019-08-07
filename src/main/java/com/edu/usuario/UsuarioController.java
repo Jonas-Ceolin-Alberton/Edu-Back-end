@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "/login")
+@RequestMapping(path = "/usuario")
 @CrossOrigin
 public class UsuarioController {
 
@@ -19,14 +19,13 @@ public class UsuarioController {
         return this.usuarioService.buscarPorId(id);
     }
 //
-//    @PostMapping
-//    public Usuario cadastrar(@RequestBody Usuario usuario) {
-//        return this.usuarioService.salvar(usuario);
+//    @PostMapping()
+//    public Usuario atualizar(@RequestBody Usuario usuario) {
+//        return this.usuarioService.atualizar(usuario);
 //    }
 
     @PostMapping()
-    public String autenticar(@RequestBody Usuario usuario) {
-            return "works";
-//        return this.usuarioService.autenticar(usuario);
+    public Usuario cadastrar(@RequestBody Usuario usuario) {
+        return this.usuarioService.cadastrar(usuario);
     }
 }
