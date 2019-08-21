@@ -46,6 +46,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET)
                 .compact();
 
+        response.addHeader("Access-Control-Expose-Headers", "Authorization");
         response.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token);
     }
 }

@@ -12,9 +12,9 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public Optional<Usuario> buscarPorId(Long id) {
-        return this.usuarioRepository.findById(id);
-    }
+    public Usuario buscarPorUserName(String userName) {
+        return this.usuarioRepository.findByUsername(userName);
+}
 
     public Usuario atualizar(Usuario usuario) {
         return this.usuarioRepository.save(usuario);
