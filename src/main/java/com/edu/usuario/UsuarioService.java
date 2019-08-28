@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -13,8 +14,10 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     public Usuario buscarPorUserName(String userName) {
-        return this.usuarioRepository.findByUsername(userName);
-}
+        Usuario usuario = this.usuarioRepository.findByUsername(userName);
+        usuario.setPassword("");
+        return usuario;
+    }
 
     public Usuario atualizar(Usuario usuario) {
         return this.usuarioRepository.save(usuario);

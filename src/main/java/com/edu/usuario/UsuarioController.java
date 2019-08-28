@@ -13,7 +13,7 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @GetMapping(path = "/{username}")
-    public Usuario listarPorId(@PathVariable(name = "username") String username) {
+    public Usuario listarPorId(@PathVariable("username") String username) {
         return this.usuarioService.buscarPorUserName(username);
     }
 //
