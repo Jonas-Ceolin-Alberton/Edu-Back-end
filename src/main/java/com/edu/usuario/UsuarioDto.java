@@ -1,21 +1,9 @@
 package com.edu.usuario;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-
-@Entity
-public class Usuario {
-
-    @Column(unique = true)
-    @Id
+public class UsuarioDto {
     private String username;
-
-    @NotEmpty
-    private String password;
-
     private String nome;
-
-    private boolean admin = false;
+    private boolean admin;
 
     public String getUsername() {
         return username;
@@ -23,14 +11,6 @@ public class Usuario {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getNome() {
