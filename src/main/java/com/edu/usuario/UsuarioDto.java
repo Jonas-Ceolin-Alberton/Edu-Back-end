@@ -1,9 +1,13 @@
 package com.edu.usuario;
 
+import com.edu.security.Permissao;
+
+import java.util.Collection;
+
 public class UsuarioDto {
     private String username;
     private String nome;
-    private boolean admin;
+    private Collection<Permissao> permissoes;
 
     public String getUsername() {
         return username;
@@ -21,11 +25,11 @@ public class UsuarioDto {
         this.nome = nome;
     }
 
-    public boolean isAdmin() {
-        return admin;
+    public Collection<Permissao> getPermissoes() {
+        return permissoes;
     }
 
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
+    public void setPermissoes(Collection<Permissao> permissoes) {
+        this.permissoes = permissoes;
     }
 }

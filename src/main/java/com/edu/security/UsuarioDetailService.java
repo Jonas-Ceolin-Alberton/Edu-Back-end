@@ -25,8 +25,8 @@ public class UsuarioDetailService implements UserDetailsService {
         Usuario accountCredentials =  Optional.ofNullable(usuarioRepository.findByUsername(username))
                                                  .orElseThrow( () -> new UsernameNotFoundException("Usuario não encontrado"));
 
-        List<GrantedAuthority> authorityListAdmin = AuthorityUtils.createAuthorityList("ROLE_USER", "ROLE_ADMIN");
+//        List<GrantedAuthority> authorityListAdmin = AuthorityUtils.createAuthorityList("ROLE_USER", "ROLE_ADMIN");
         List<GrantedAuthority> authorityListUser = AuthorityUtils.createAuthorityList("ROLE_USER");
-        return new User(accountCredentials.getUsername(), accountCredentials.getPassword(), accountCredentials.isAdmin() ? authorityListAdmin : authorityListUser);
+        return new User(accountCredentials.getUsername(), accountCredentials.getPassword(), accountCredentials.getAuthorities());
     }
 }
