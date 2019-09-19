@@ -9,4 +9,7 @@ public class AtividadeService {
     @Autowired
     private AtividadeRepository atividadeRepository;
 
+    public Atividade salvar(Atividade atividade) {
+        return atividadeRepository.save(atividade);
+    }
 }

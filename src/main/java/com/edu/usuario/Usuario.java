@@ -9,10 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class Usuario implements UserDetails {
@@ -69,7 +66,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = new ArrayList(permissoes.size());
+        List<GrantedAuthority> authorities = new ArrayList();
 
         for (Permissao auth : permissoes) {
                 authorities.add(new SimpleGrantedAuthority(auth.getPermissao().toString()));
