@@ -16,7 +16,7 @@ public class Atividade {
     private Long id;
 
     @NotBlank
-    private String titulo ;
+    private String titulo;
 
     @NotBlank
     private String descricao;
