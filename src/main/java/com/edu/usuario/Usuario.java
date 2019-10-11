@@ -90,4 +90,8 @@ public class Usuario implements UserDetails {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public void adicionarPermissao(Permissao permissao) {
+        this.permissoes.add(permissao);
+    }
 }

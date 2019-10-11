@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Service
@@ -33,5 +34,13 @@ public class UsuarioService {
 
     private String bcryptPassword(String password) {
         return new BCryptPasswordEncoder().encode(password);
+    }
+
+    public Usuario adicionarPermissaoCreator(Usuario usuario) throws Exception {
+        Usuario user = findByUsername(usuario.getUsername());
+        if(Objects.isNull(user)) throw new Exception("Erro ao encontrar o usuario");
+
+        user.adicionarPermissao(new Permissao(Permissao.Authority.ROLE_ADMIN));
+        return this.usuarioRepository.save(user);
     }
 }

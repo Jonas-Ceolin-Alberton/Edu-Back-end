@@ -22,4 +22,9 @@ public class UsuarioController {
     public Usuario cadastrar(@RequestBody Usuario usuario) {
         return this.usuarioService.cadastrar(usuario);
     }
+
+    @PostMapping("/permite-criar")
+    public Usuario permitirCriar(@RequestBody Usuario usuario) throws Exception {
+        return this.usuarioService.adicionarPermissaoCreator(usuario);
+    }
 }
