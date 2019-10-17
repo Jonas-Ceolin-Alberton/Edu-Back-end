@@ -14,7 +14,7 @@ public class SolicitacaoController {
     SolicitacaoService solicitacaoService;
 
     @PostMapping("/criador")
-    public Solicitacao solicitarRoleUser(@RequestBody Usuario usuario) throws Exception {
+    public Solicitacao solicitarRoleCreator(@RequestBody Usuario usuario) throws Exception {
         return solicitacaoService.criarSolicitacaoCreator(usuario);
     }
 

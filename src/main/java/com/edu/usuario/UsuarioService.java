@@ -40,6 +40,14 @@ public class UsuarioService {
         Usuario user = findByUsername(usuario.getUsername());
         if(Objects.isNull(user)) throw new Exception("Erro ao encontrar o usuario");
 
+        user.adicionarPermissao(new Permissao(Permissao.Authority.ROLE_CREATOR));
+        return this.usuarioRepository.save(user);
+    }
+
+    public Usuario adicionarPermissaoAdmin(Usuario usuario) throws Exception {
+        Usuario user = findByUsername(usuario.getUsername());
+        if(Objects.isNull(user)) throw new Exception("Erro ao encontrar o usuario");
+
         user.adicionarPermissao(new Permissao(Permissao.Authority.ROLE_ADMIN));
         return this.usuarioRepository.save(user);
     }
