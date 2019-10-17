@@ -22,5 +22,4 @@ public class SolicitacaoController {
     public Iterable<Solicitacao> findAll() {
         return solicitacaoService.buscarTodos();
     }
-
 }

@@ -22,8 +22,9 @@ public class SolicitacaoService {
         if(Objects.isNull(user)) throw  new Exception("erro");
 
         Solicitacao solicitacao = new Solicitacao();
-        solicitacao.setNome("Solicitação de permissão criador");
+        solicitacao.setDescricao("Solicitação de permissão criador");
         solicitacao.setSolicitante(user);
+        solicitacao.setTipoSolicitacao(Solicitacao.TipoSolicitacao.SOLICITACAO_CRIADOR);
         return solicitacaoRepository.save(solicitacao);
     }
 

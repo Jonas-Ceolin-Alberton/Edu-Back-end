@@ -10,10 +10,24 @@ public class Solicitacao {
     @Id@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String nome;
+    private String descricao;
 
     @OneToOne(fetch = FetchType.EAGER)
     private Usuario solicitante;
+
+    @Enumerated(EnumType.STRING)
+    private TipoSolicitacao tipoSolicitacao;
+
+    @Enumerated(EnumType.STRING)
+    private StatusSolicitacao statusSolicitacao;
+
+    public enum  TipoSolicitacao {
+        SOLICITACAO_CRIADOR, SOLICITACAO_PUBLICACAO
+    }
+
+    public enum StatusSolicitacao {
+        ACEITA, NEGADA
+    }
 
     public Long getId() {
         return id;
@@ -23,12 +37,12 @@ public class Solicitacao {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public Usuario getSolicitante() {
@@ -37,5 +51,21 @@ public class Solicitacao {
 
     public void setSolicitante(Usuario solicitante) {
         this.solicitante = solicitante;
+    }
+
+    public TipoSolicitacao getTipoSolicitacao() {
+        return tipoSolicitacao;
+    }
+
+    public void setTipoSolicitacao(TipoSolicitacao tipoSolicitacao) {
+        this.tipoSolicitacao = tipoSolicitacao;
+    }
+
+    public StatusSolicitacao getStatusSolicitacao() {
+        return statusSolicitacao;
+    }
+
+    public void setStatusSolicitacao(StatusSolicitacao statusSolicitacao) {
+        this.statusSolicitacao = statusSolicitacao;
     }
 }
