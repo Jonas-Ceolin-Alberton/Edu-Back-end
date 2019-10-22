@@ -1,7 +1,12 @@
 package com.edu.atividade;
 
-import com.edu.aula.Aula;
+import com.edu.atividade.capitulo.Capitulo;
+import com.edu.atividade.file.File;
 import com.edu.usuario.Usuario;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -9,6 +14,10 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Atividade {
 
     @Id
@@ -26,45 +35,8 @@ public class Atividade {
     private Usuario criador;
 
     @OneToMany
-    private List<Aula> aulas;
+    private List<Capitulo> capitulos;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public Usuario getCriador() {
-        return criador;
-    }
-
-    public void setCriador(Usuario criador) {
-        this.criador = criador;
-    }
-
-    public List<Aula> getAulas() {
-        return aulas;
-    }
-
-    public void setAulas(List<Aula> aulas) {
-        this.aulas = aulas;
-    }
+    @OneToOne
+    private File imagem;
 }

@@ -1,6 +1,5 @@
-package com.edu.aula;
+package com.edu.file;
 
-import org.apache.tomcat.jni.Error;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -9,12 +8,12 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @Service
-public class AulaService {
+public class fileService {
 
     @Autowired
-    private AulaRepository aulaRepository;
+    private FileRepository fileRepository;
 
-    public Aula storeFile(MultipartFile file) {
+    public File storeFile(MultipartFile file) {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
@@ -24,17 +23,17 @@ public class AulaService {
 //                throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
 //            }
 
-            Aula dbFile = new Aula(fileName, file.getContentType(), file.getBytes());
+            File dbFile = new File(fileName, file.getContentType(), file.getBytes());
 
-            return aulaRepository.save(dbFile);
+            return fileRepository.save(dbFile);
         } catch (IOException ex) {
             throw new RuntimeException("No negative number please!");
 //            throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
         }
     }
 
-    public Aula getFile(String fileId) {
-        return aulaRepository.findById(fileId)
+    public File getFile(String fileId) {
+        return fileRepository.findById(fileId)
                 .orElseThrow(() -> new RuntimeException("File not found with id " + fileId));
     }
 }

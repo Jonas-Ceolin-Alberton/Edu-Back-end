@@ -1,4 +1,4 @@
-package com.edu.aula;
+package com.edu.atividade.file;
 
 public class UploadFileResponse {
 

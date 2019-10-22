@@ -11,12 +11,13 @@ public class AtividadeController {
     @Autowired
     private AtividadeService atividadeService;
 
-    @PostMapping()
+    @PostMapping("/creator")
     public Atividade cadastrar(@RequestBody() Atividade atividade) {
-        Atividade atc = atividadeService.salvar(atividade);
-
-        return  atc;
+       return atividadeService.salvar(atividade);
     }
 
-
+//    @GetMapping("/creator/{id}")
+//    public Atividade cadastrar() {
+//        return atividadeService.salvar(atividade);
+//    }
 }

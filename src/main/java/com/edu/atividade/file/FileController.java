@@ -1,4 +1,4 @@
-package com.edu.aula;
+package com.edu.atividade.file;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,18 +14,18 @@ import org.springframework.core.io.Resource;
 
 
 @RestController
-@RequestMapping(path = "/aula")
+@RequestMapping(path = "/file")
 @CrossOrigin
-public class AulaController {
+public class FileController {
 
-    private static final Logger logger = LoggerFactory.getLogger(AulaController.class);
+    private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
     @Autowired
-    private AulaService aulaService;
+    private fileService fileService;
 
     @PostMapping("/uploadFile")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
-        Aula dbFile = aulaService.storeFile(file);
+        File dbFile = fileService.storeFile(file);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
@@ -39,7 +39,7 @@ public class AulaController {
     @GetMapping("/downloadFile/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) {
         // Load file from database
-        Aula dbFile = aulaService.getFile(fileId);
+        File dbFile = fileService.getFile(fileId);
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(dbFile.getFileType()))

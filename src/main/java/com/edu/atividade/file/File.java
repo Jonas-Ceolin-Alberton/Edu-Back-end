@@ -1,12 +1,12 @@
-package com.edu.aula;
+package com.edu.atividade.file;
 
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "aula")
-public class Aula {
+@Table(name = "file")
+public class File {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -20,10 +20,10 @@ public class Aula {
     @Lob
     private byte[] data;
 
-    public Aula() {
+    public File() {
     }
 
-    public Aula(String fileName, String fileType, byte[] data) {
+    public File(String fileName, String fileType, byte[] data) {
         this.fileName = fileName;
         this.fileType = fileType;
         this.data = data;
