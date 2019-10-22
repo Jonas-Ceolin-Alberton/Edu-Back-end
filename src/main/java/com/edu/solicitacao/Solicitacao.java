@@ -1,19 +1,35 @@
 package com.edu.solicitacao;
 
+import com.edu.atividade.Atividade;
+import com.edu.solicitacao.enums.StatusSolicitacao;
+import com.edu.solicitacao.enums.TipoSolicitacao;
 import com.edu.usuario.Usuario;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @Entity
+@Builder
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Solicitacao {
 
-    @Id@GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String descricao;
 
     @OneToOne(fetch = FetchType.EAGER)
+    @NotNull
     private Usuario solicitante;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    private Atividade atividade;
 
     @Enumerated(EnumType.STRING)
     private TipoSolicitacao tipoSolicitacao;
@@ -21,51 +37,7 @@ public class Solicitacao {
     @Enumerated(EnumType.STRING)
     private StatusSolicitacao statusSolicitacao;
 
-    public enum  TipoSolicitacao {
-        SOLICITACAO_CRIADOR, SOLICITACAO_PUBLICACAO
-    }
+    private LocalDate dataSolicitacao;
 
-    public enum StatusSolicitacao {
-        ACEITA, NEGADA
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public Usuario getSolicitante() {
-        return solicitante;
-    }
-
-    public void setSolicitante(Usuario solicitante) {
-        this.solicitante = solicitante;
-    }
-
-    public TipoSolicitacao getTipoSolicitacao() {
-        return tipoSolicitacao;
-    }
-
-    public void setTipoSolicitacao(TipoSolicitacao tipoSolicitacao) {
-        this.tipoSolicitacao = tipoSolicitacao;
-    }
-
-    public StatusSolicitacao getStatusSolicitacao() {
-        return statusSolicitacao;
-    }
-
-    public void setStatusSolicitacao(StatusSolicitacao statusSolicitacao) {
-        this.statusSolicitacao = statusSolicitacao;
-    }
+    private LocalDate dataAtualizacao;
 }

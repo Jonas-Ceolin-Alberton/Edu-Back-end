@@ -1,5 +1,6 @@
 package com.edu.solicitacao;
 
+import com.edu.solicitacao.enums.StatusSolicitacao;
 import com.edu.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +16,18 @@ public class SolicitacaoController {
 
     @PostMapping("/criador")
     public Solicitacao solicitarRoleCreator(@RequestBody Usuario usuario) throws Exception {
-        return solicitacaoService.criarSolicitacaoCreator(usuario);
+        return solicitacaoService.criarSolicitacaoRoleCreator(usuario);
     }
 
-    @GetMapping("/admin")
-    public Iterable<Solicitacao> findAll() {
-        return solicitacaoService.buscarTodos();
+    @GetMapping("/admin/{status}")
+    public Iterable<Solicitacao> buscarPorSatus(@PathVariable StatusSolicitacao status) {
+        return solicitacaoService.buscarPorStatus(status);
     }
+
+    @PostMapping("/admin/permitir-criador")
+    public Solicitacao permitirCriador(@RequestBody Solicitacao solicitacao) throws Exception {
+        return solicitacaoService.permitirCriador(solicitacao);
+    }
+
+
 }

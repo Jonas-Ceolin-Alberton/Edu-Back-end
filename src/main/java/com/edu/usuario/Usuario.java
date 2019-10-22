@@ -1,9 +1,8 @@
 package com.edu.usuario;
 
 import com.edu.security.Permissao;
-import org.springframework.data.repository.cdi.Eager;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,6 +11,11 @@ import javax.validation.constraints.NotEmpty;
 import java.util.*;
 
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Usuario implements UserDetails {
 
     @Id
@@ -26,14 +30,6 @@ public class Usuario implements UserDetails {
 
     @ManyToMany(fetch=FetchType.EAGER)
     private Collection<Permissao> permissoes;
-
-    public Collection<Permissao> getPermissoes() {
-        return permissoes;
-    }
-
-    public void setPermissoes(List<Permissao> permissoes) {
-        this.permissoes = permissoes;
-    }
 
     @Override
     public String getUsername() {
@@ -60,10 +56,6 @@ public class Usuario implements UserDetails {
         return false;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList();
@@ -79,19 +71,8 @@ public class Usuario implements UserDetails {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public void adicionarPermissao(Permissao permissao) {
         this.permissoes.add(permissao);
+        getPermissoes();
     }
 }
