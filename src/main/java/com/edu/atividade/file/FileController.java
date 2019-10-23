@@ -21,7 +21,7 @@ public class FileController {
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
     @Autowired
-    private fileService fileService;
+    private FileService fileService;
 
     @PostMapping("/uploadFile")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
@@ -32,8 +32,7 @@ public class FileController {
                 .path(dbFile.getId())
                 .toUriString();
 
-        return new UploadFileResponse(dbFile.getFileName(), fileDownloadUri,
-                file.getContentType(), file.getSize());
+        return new UploadFileResponse(dbFile.getId());
     }
 
     @GetMapping("/downloadFile/{fileId}")
