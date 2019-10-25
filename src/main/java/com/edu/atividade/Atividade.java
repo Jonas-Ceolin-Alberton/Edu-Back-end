@@ -11,6 +11,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -39,4 +40,6 @@ public class Atividade {
 
     @OneToOne
     private File imagem;
+
+    private LocalDate dataCricacao;
 }

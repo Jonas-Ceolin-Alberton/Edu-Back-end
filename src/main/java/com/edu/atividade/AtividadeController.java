@@ -1,7 +1,6 @@
 package com.edu.atividade;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,11 +15,17 @@ public class AtividadeController {
 
     @PostMapping("/creator")
     public Atividade cadastrar(@RequestBody() Atividade atividade) {
+
        return atividadeService.salvar(atividade);
     }
 
     @GetMapping()
-    public List<Atividade> cadastrar() {
+    public List<Atividade> buscarPorUsername() {
         return atividadeService.getAllByUserName();
+    }
+
+    @GetMapping("/{id}")
+    public Atividade buscarPorId(@PathVariable Long id) {
+        return atividadeService.getById(id);
     }
 }

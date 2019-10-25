@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -13,11 +14,16 @@ public class AtividadeService {
     private AtividadeRepository atividadeRepository;
 
     public Atividade salvar(Atividade atividade) {
+        atividade.setDataCricacao(LocalDate.now());
         return atividadeRepository.save(atividade);
     }
 
     public List<Atividade> getAllByUserName() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return atividadeRepository.findByCriadorUsername(username);
+    }
+
+    public Atividade getById(Long id) {
+        return atividadeRepository.findById(id).get();
     }
 }
