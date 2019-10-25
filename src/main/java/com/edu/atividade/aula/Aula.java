@@ -21,6 +21,6 @@ public class Aula {
 
     private String nome;
 
-    @OneToOne
+    @OneToOne(fetch=FetchType.EAGER)
     private File file;
 }

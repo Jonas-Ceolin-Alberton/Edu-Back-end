@@ -1,7 +1,10 @@
 package com.edu.atividade;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/atividade")
@@ -16,8 +19,8 @@ public class AtividadeController {
        return atividadeService.salvar(atividade);
     }
 
-//    @GetMapping("/creator/{id}")
-//    public Atividade cadastrar() {
-//        return atividadeService.salvar(atividade);
-//    }
+    @GetMapping()
+    public List<Atividade> cadastrar() {
+        return atividadeService.getAllByUserName();
+    }
 }

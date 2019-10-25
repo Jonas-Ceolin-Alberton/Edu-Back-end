@@ -32,7 +32,7 @@ public class FileController {
                 .path(dbFile.getId())
                 .toUriString();
 
-        return new UploadFileResponse(dbFile.getId());
+        return new UploadFileResponse(dbFile.getId(), dbFile.getFileName());
     }
 
     @GetMapping("/downloadFile/{fileId}")
