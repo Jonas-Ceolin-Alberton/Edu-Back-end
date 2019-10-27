@@ -24,6 +24,11 @@ public class AtividadeController {
         return atividadeService.getAllByUserName();
     }
 
+    @GetMapping("/aceitas")
+    public List<Atividade> buscarAceitas() {
+        return atividadeService.getAceitas();
+    }
+
     @GetMapping("/{id}")
     public Atividade buscarPorId(@PathVariable Long id) {
         return atividadeService.getById(id);

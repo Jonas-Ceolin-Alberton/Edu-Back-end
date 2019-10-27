@@ -22,4 +22,6 @@ public class File {
     private String fileType;
 
     private Long size;
+
+    private String src;
 }

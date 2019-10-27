@@ -1,5 +1,6 @@
 package com.edu.solicitacao;
 
+import com.edu.atividade.Atividade;
 import com.edu.atividade.AtividadeService;
 import com.edu.solicitacao.enums.StatusSolicitacao;
 import com.edu.solicitacao.enums.TipoSolicitacao;
@@ -51,5 +52,22 @@ public class SolicitacaoService {
 
     public Iterable<Solicitacao> buscarPorStatus(StatusSolicitacao statusSolicitacao) {
         return solicitacaoRepository.findByStatusSolicitacao(statusSolicitacao);
+    }
+
+    public Solicitacao criarSolicitacaoPublicacaoAtividade(Atividade atividade) throws Exception {
+        atividade = atividadeService.salvar(atividade);
+
+        if (Objects.isNull(atividade)) throw new Exception("erro");
+
+        Solicitacao solicitacao = Solicitacao.builder()
+                .solicitante(atividade.getCriador())
+                .tipoSolicitacao(TipoSolicitacao.PUBLICACAO)
+                .atividade(atividade)
+                .descricao("Solicitação para publicar atividade")
+                .statusSolicitacao(StatusSolicitacao.PENDENTE)
+                .dataSolicitacao(LocalDate.now())
+                .build();
+
+        return solicitacaoRepository.save(solicitacao);
     }
 }

@@ -1,7 +1,6 @@
 package com.edu.atividade.capitulo;
 
 import com.edu.atividade.aula.Aula;
-import com.edu.atividade.file.File;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

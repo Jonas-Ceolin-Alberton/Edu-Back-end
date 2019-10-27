@@ -32,10 +32,16 @@ public class FileController {
     public File uploadFile(@RequestParam("file") MultipartFile file) {
         String fileName = fileStorageService.storeFile(file);
 
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/file/downloadFile/")
+                .path(fileName)
+                .toUriString();
+
         File fileDb = new File().builder()
                 .fileName(fileName)
                 .size(file.getSize())
                 .fileType(file.getContentType())
+                .src(fileDownloadUri)
                 .build();
 
         return fileService.salvar(fileDb);

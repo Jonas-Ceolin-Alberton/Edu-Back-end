@@ -2,6 +2,7 @@ package com.edu.atividade;
 
 import com.edu.atividade.capitulo.Capitulo;
 import com.edu.atividade.file.File;
+import com.edu.solicitacao.enums.StatusSolicitacao;
 import com.edu.usuario.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -41,5 +42,11 @@ public class Atividade {
     @OneToOne
     private File imagem;
 
-    private LocalDate dataCricacao;
+    private LocalDate dataCriacao;
+
+    private StatusSolicitacao status;
+
+    private Long cargaHorariaCriador;
+
+    private Long cargaHorariaAluno;
 }

@@ -1,5 +1,6 @@
 package com.edu.atividade;
 
+import com.edu.solicitacao.enums.StatusSolicitacao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ public class AtividadeService {
     private AtividadeRepository atividadeRepository;
 
     public Atividade salvar(Atividade atividade) {
-        atividade.setDataCricacao(LocalDate.now());
+        atividade.setDataCriacao(LocalDate.now());
         return atividadeRepository.save(atividade);
     }
 
@@ -25,5 +26,9 @@ public class AtividadeService {
 
     public Atividade getById(Long id) {
         return atividadeRepository.findById(id).get();
+    }
+
+    public List<Atividade> getAceitas() {
+        return atividadeRepository.findByStatus(StatusSolicitacao.ACEITA);
     }
 }

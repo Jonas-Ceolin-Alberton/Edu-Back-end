@@ -1,5 +1,6 @@
 package com.edu.solicitacao;
 
+import com.edu.atividade.Atividade;
 import com.edu.solicitacao.enums.StatusSolicitacao;
 import com.edu.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,11 @@ public class SolicitacaoController {
     @PostMapping("/criador")
     public Solicitacao solicitarRoleCreator(@RequestBody Usuario usuario) throws Exception {
         return solicitacaoService.criarSolicitacaoRoleCreator(usuario);
+    }
+
+    @PostMapping("/publicar-atividade")
+    public Solicitacao solicitarPublicacaoAtividade(@RequestBody Atividade atividade) throws Exception {
+        return solicitacaoService.criarSolicitacaoPublicacaoAtividade(atividade);
     }
 
     @GetMapping("/admin/{status}")
