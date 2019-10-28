@@ -70,4 +70,35 @@ public class SolicitacaoService {
 
         return solicitacaoRepository.save(solicitacao);
     }
+
+    public Solicitacao permitirPublicacaoAtividade(Solicitacao solicitacao) throws Exception {
+
+        Atividade atividade =  atividadeService.getById(solicitacao.getAtividade().getId());
+        atividade.setStatus(StatusSolicitacao.ACEITA);
+        atividadeService.salvar(atividade);
+
+        solicitacao =  solicitacaoRepository.findById(solicitacao.getId()).get();
+
+        if(Objects.isNull(solicitacao)) throw  new Exception("Solicitação não encontrada");
+
+        solicitacao.setStatusSolicitacao(StatusSolicitacao.ACEITA);
+        solicitacao = solicitacaoRepository.save(solicitacao);
+
+        return solicitacao;
+    }
+
+    public Solicitacao negarPublicacao(Solicitacao solicitacao) throws Exception {
+        Atividade atividade =  atividadeService.getById(solicitacao.getAtividade().getId());
+        atividade.setStatus(StatusSolicitacao.NEGADA);
+        atividadeService.salvar(atividade);
+
+        solicitacao =  solicitacaoRepository.findById(solicitacao.getId()).get();
+
+        if(Objects.isNull(solicitacao)) throw  new Exception("Solicitação não encontrada");
+
+        solicitacao.setStatusSolicitacao(StatusSolicitacao.NEGADA);
+        solicitacao = solicitacaoRepository.save(solicitacao);
+
+        return solicitacao;
+    }
 }

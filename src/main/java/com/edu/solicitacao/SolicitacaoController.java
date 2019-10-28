@@ -15,19 +15,14 @@ public class SolicitacaoController {
     @Autowired
     SolicitacaoService solicitacaoService;
 
-    @PostMapping("/criador")
-    public Solicitacao solicitarRoleCreator(@RequestBody Usuario usuario) throws Exception {
-        return solicitacaoService.criarSolicitacaoRoleCreator(usuario);
-    }
-
-    @PostMapping("/publicar-atividade")
-    public Solicitacao solicitarPublicacaoAtividade(@RequestBody Atividade atividade) throws Exception {
-        return solicitacaoService.criarSolicitacaoPublicacaoAtividade(atividade);
-    }
-
     @GetMapping("/admin/{status}")
     public Iterable<Solicitacao> buscarPorSatus(@PathVariable StatusSolicitacao status) {
         return solicitacaoService.buscarPorStatus(status);
+    }
+
+    @PostMapping("/criador")
+    public Solicitacao solicitarRoleCreator(@RequestBody Usuario usuario) throws Exception {
+        return solicitacaoService.criarSolicitacaoRoleCreator(usuario);
     }
 
     @PostMapping("/admin/permitir-criador")
@@ -35,5 +30,18 @@ public class SolicitacaoController {
         return solicitacaoService.permitirCriador(solicitacao);
     }
 
+    @PostMapping("/solicitar-publicacao")
+    public Solicitacao solicitarPublicacaoAtividade(@RequestBody Atividade atividade) throws Exception {
+        return solicitacaoService.criarSolicitacaoPublicacaoAtividade(atividade);
+    }
 
+    @PostMapping("/admin/permitir-publicacao")
+    public Solicitacao permitirPublicacaoAtividade(@RequestBody Solicitacao solicitacao) throws Exception {
+        return solicitacaoService.permitirPublicacaoAtividade(solicitacao);
+    }
+
+    @PostMapping("/admin/negar-publicacao")
+    public Solicitacao negarPublicacao(@RequestBody Solicitacao solicitacao) throws Exception {
+        return solicitacaoService.negarPublicacao(solicitacao);
+    }
 }
