@@ -26,5 +26,8 @@ public class CertificadoService {
         return certificadoRepository.findByUsuarioUsername(username);
     }
 
+    public Certificado gerar(Certificado certificado) {
+        return certificadoRepository.save(certificado);
+    }
 
 }

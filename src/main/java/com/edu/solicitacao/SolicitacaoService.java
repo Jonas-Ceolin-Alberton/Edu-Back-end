@@ -2,6 +2,8 @@ package com.edu.solicitacao;
 
 import com.edu.atividade.Atividade;
 import com.edu.atividade.AtividadeService;
+import com.edu.atividade.certificado.Certificado;
+import com.edu.atividade.certificado.CertificadoService;
 import com.edu.solicitacao.enums.StatusSolicitacao;
 import com.edu.solicitacao.enums.TipoSolicitacao;
 import com.edu.usuario.Usuario;
@@ -21,6 +23,8 @@ public class SolicitacaoService {
     UsuarioService usuarioService;
     @Autowired
     AtividadeService atividadeService;
+    @Autowired
+    CertificadoService certificadoService;
 
     public Solicitacao criarSolicitacaoRoleCreator(Usuario usuario) throws Exception {
         Usuario user = usuarioService.findByUsername(usuario.getUsername());
@@ -39,9 +43,9 @@ public class SolicitacaoService {
     }
 
     public Solicitacao permitirCriador(Solicitacao solicitacao) throws Exception {
-        solicitacao =  solicitacaoRepository.findById(solicitacao.getId()).get();
+        solicitacao = solicitacaoRepository.findById(solicitacao.getId()).get();
 
-        if(Objects.isNull(solicitacao)) throw  new Exception("Solicitação não encontrada");
+        if (Objects.isNull(solicitacao)) throw new Exception("Solicitação não encontrada");
 
         solicitacao.setStatusSolicitacao(StatusSolicitacao.ACEITA);
         solicitacao = solicitacaoRepository.save(solicitacao);
@@ -73,32 +77,45 @@ public class SolicitacaoService {
 
     public Solicitacao permitirPublicacaoAtividade(Solicitacao solicitacao) throws Exception {
 
-        Atividade atividade =  atividadeService.getById(solicitacao.getAtividade().getId());
+        Atividade atividade = atividadeService.getById(solicitacao.getAtividade().getId());
+        atividade.setCargaHorariaAluno(solicitacao.getAtividade().getCargaHorariaAluno());
+        atividade.setCargaHorariaCriador(solicitacao.getAtividade().getCargaHorariaCriador());
         atividade.setStatus(StatusSolicitacao.ACEITA);
         atividadeService.salvar(atividade);
 
-        solicitacao =  solicitacaoRepository.findById(solicitacao.getId()).get();
+        solicitacao = solicitacaoRepository.findById(solicitacao.getId()).get();
 
-        if(Objects.isNull(solicitacao)) throw  new Exception("Solicitação não encontrada");
+        if (Objects.isNull(solicitacao)) throw new Exception("Solicitação não encontrada");
 
         solicitacao.setStatusSolicitacao(StatusSolicitacao.ACEITA);
         solicitacao = solicitacaoRepository.save(solicitacao);
 
+        gerarCertificadoCriador(solicitacao);
         return solicitacao;
     }
 
     public Solicitacao negarPublicacao(Solicitacao solicitacao) throws Exception {
-        Atividade atividade =  atividadeService.getById(solicitacao.getAtividade().getId());
+        Atividade atividade = atividadeService.getById(solicitacao.getAtividade().getId());
         atividade.setStatus(StatusSolicitacao.NEGADA);
         atividadeService.salvar(atividade);
 
-        solicitacao =  solicitacaoRepository.findById(solicitacao.getId()).get();
+        solicitacao = solicitacaoRepository.findById(solicitacao.getId()).get();
 
-        if(Objects.isNull(solicitacao)) throw  new Exception("Solicitação não encontrada");
+        if (Objects.isNull(solicitacao)) throw new Exception("Solicitação não encontrada");
 
         solicitacao.setStatusSolicitacao(StatusSolicitacao.NEGADA);
         solicitacao = solicitacaoRepository.save(solicitacao);
 
         return solicitacao;
+    }
+
+    private void gerarCertificadoCriador(Solicitacao solicitacao) {
+        Certificado certificado = Certificado.builder()
+                .usuario(solicitacao.getSolicitante())
+                .atividade(solicitacao.getAtividade())
+                .criador(true)
+                .build();
+
+        certificadoService.gerar(certificado);
     }
 }
