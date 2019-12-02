@@ -23,8 +23,8 @@ public class CertificadoController {
         return certificadoService.buscarTodosPorUsername();
     }
 
-    @PostMapping()
-    public Certificado gerarCertificado(Certificado certificado) {
-        return certificadoService.gerar(certificado);
+    @PostMapping("/aluno")
+    public Certificado gerarCertificadoAulo(@RequestBody() Certificado certificado) {
+        return certificadoService.gerarCertificadoAluno(certificado);
     }
 }
